@@ -1,6 +1,8 @@
 public class App {
     public static void main(String[] args) throws Exception {
-        System.out.println("Hello, World!");
-        System.out.println("balls"); // 2 balls
+        Song test = new Song(2012, "jamesBong", "balls", 2);
+        Playlist testplay = new Playlist();
+        testplay.addSong(test);
+        System.out.println(testplay.contents.get(0));
     }
 }

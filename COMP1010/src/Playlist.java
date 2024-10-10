@@ -1,15 +1,14 @@
 import java.util.*;
 
 public class Playlist {
-ArrayList<Song> playlistContents;
-String name;
+ ArrayList<Song> contents;
 
 public Playlist(){
-    return 
+    contents = new ArrayList<Song>();
 }
 
 public void addSong(Song a){
-    playlistContents.add(a);
+    contents.add(a);
 }
 
 }
