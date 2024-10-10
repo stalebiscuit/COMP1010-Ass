@@ -1,6 +1,6 @@
 public class App {
     public static void main(String[] args) throws Exception {
         System.out.println("Hello, World!");
-        System.out.println("balls");
+        System.out.println("balls"); // 2 balls
     }
 }
