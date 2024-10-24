@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -24,25 +23,18 @@ public class Playlist {
     }
 
     public void nextSong() {
-        currentIndex = moveNext(currentIndex);  // Use recursion to move to the next song
+        currentIndex = (currentIndex + 1) % songs.size();
     }
 
     public void previousSong() {
         currentIndex = (currentIndex - 1 + songs.size()) % songs.size();
     }
 
-    // Recursive method for moving to the next song
-    private int moveNext(int index) {
-        if (index + 1 < songs.size()) {
-            return index + 1;
-        } else {
-            return moveNext(-1);  // Recursion that wraps around to the start
-        }
-    }
-
+    // Method to play a random song (shuffle play without altering order)
     public void shufflePlay() {
-        Collections.shuffle(songs, new Random());
-        currentIndex = 0;
+        Random random = new Random();
+        int randomIndex = random.nextInt(songs.size());
+        System.out.println("Shuffle Playing: " + songs.get(randomIndex));
     }
 
     public void showPlaylist() {

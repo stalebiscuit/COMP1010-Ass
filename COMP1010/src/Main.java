@@ -1,8 +1,9 @@
 import java.util.Scanner;
 
-public class App {
-      public static void main(String[] args) throws Exception {
-          Scanner scanner = new Scanner(System.in);
+public class Main {
+    public static void main(String[] args) {
+        // Create scanner for user input
+        Scanner scanner = new Scanner(System.in);
 
         // Create some initial songs
         Song song1 = new Song("Song A", "Artist 1", true);
@@ -32,7 +33,7 @@ public class App {
             System.out.println("2. Play Current Song");
             System.out.println("3. Next Song");
             System.out.println("4. Previous Song");
-            System.out.println("5. Shuffle Playlist");
+            System.out.println("5. Shuffle Play (Random Song)");
             System.out.println("6. Add New Song");
             System.out.println("7. Add New Album");
             System.out.println("0. Exit");
@@ -61,9 +62,7 @@ public class App {
                     break;
 
                 case 5:
-                    playlist.shufflePlay();
-                    System.out.println("Shuffled Playlist:");
-                    playlist.showPlaylist();
+                    playlist.shufflePlay();  // Play a random song
                     break;
 
                 case 6:
@@ -111,7 +110,7 @@ public class App {
                     break;
 
                 default:
-                    System.out.println("Inva1lid choice. Please try again.");
+                    System.out.println("Invalid choice. Please try again.");
                     break;
             }
         }
