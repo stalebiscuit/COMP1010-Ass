@@ -111,7 +111,7 @@ public class App {
                     break;
 
                 default:
-                    System.out.println("Inva1lid choice. Please try again.");
+                    System.out.println("Invalid choice. Please try again.");
                     break;
             }
         }
