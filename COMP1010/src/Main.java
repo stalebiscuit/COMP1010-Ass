@@ -5,37 +5,21 @@ public class Main {
         // Create scanner for user input
         Scanner scanner = new Scanner(System.in);
 
-        // Create some initial songs
-        Song song1 = new Song("Song A", "Artist 1", true);
-        Song song2 = new Song("Song B", "Artist 2", false);
-        Song song3 = new Song("Song C", "Band 1", true);
-        Song song4 = new Song("Song D", "Band 2", false);
-
-        // Create a playlist
-        Playlist playlist = new Playlist();
-
-        // Create an album with a main track
-        Album album1 = new Album("Album 1", song2);
-        album1.addSongToAlbum(song3);  // Add more songs to the album
-
-        // Add initial songs to the playlist
-        playlist.addSong(song1);
-        playlist.addSong(song4);
-        playlist.addSong(album1.getMainTrack());
-        for (Song song : album1.getSongs()) {
-            playlist.addSong(song);
-        }
+        // Create a playlist manager
+        PlaylistManager playlistManager = new PlaylistManager();
 
         boolean exit = false;
         while (!exit) {
             System.out.println("\n--- Music Player Menu ---");
-            System.out.println("1. Show Playlist");
-            System.out.println("2. Play Current Song");
-            System.out.println("3. Next Song");
-            System.out.println("4. Previous Song");
-            System.out.println("5. Shuffle Play (Random Song)");
-            System.out.println("6. Add New Song");
-            System.out.println("7. Add New Album");
+            System.out.println("1. Show All Playlists");
+            System.out.println("2. Create New Playlist");
+            System.out.println("3. Switch to Playlist");
+            System.out.println("4. Add Song to Current Playlist");
+            System.out.println("5. Show Current Playlist");
+            System.out.println("6. Play Current Song");
+            System.out.println("7. Next Song");
+            System.out.println("8. Previous Song");
+            System.out.println("9. Shuffle Play (Random Song)");
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
@@ -43,65 +27,97 @@ public class Main {
 
             switch (choice) {
                 case 1:
-                    System.out.println("\n--- Playlist ---");
-                    playlist.showPlaylist();
+                    System.out.println("\n--- All Playlists ---");
+                    playlistManager.showAllPlaylists();
                     break;
 
                 case 2:
-                    System.out.println("\nNow Playing: " + playlist.getCurrentSong());
+                    System.out.print("Enter playlist name: ");
+                    String playlistName = scanner.nextLine();
+                    playlistManager.createNewPlaylist(playlistName);
+                    System.out.println("New playlist '" + playlistName + "' created and set as current.");
                     break;
 
                 case 3:
-                    playlist.nextSong();
-                    System.out.println("Next Song: " + playlist.getCurrentSong());
+                    System.out.println("Select a playlist by index:");
+                    playlistManager.showAllPlaylists();
+                    int playlistIndex = scanner.nextInt();
+                    scanner.nextLine();  // Consume newline
+                    playlistManager.switchToPlaylist(playlistIndex);
                     break;
 
                 case 4:
-                    playlist.previousSong();
-                    System.out.println("Previous Song: " + playlist.getCurrentSong());
+                    if (playlistManager.hasPlaylists()) {
+                        Playlist currentPlaylist = playlistManager.getCurrentPlaylist();
+                        if (currentPlaylist != null) {
+                            System.out.print("Enter song title: ");
+                            String title = scanner.nextLine();
+                            System.out.print("Enter artist name: ");
+                            String artist = scanner.nextLine();
+                            System.out.print("Is this a single? (true/false): ");
+                            boolean isSingle = scanner.nextBoolean();
+                            scanner.nextLine();  // Consume newline
+                            Song newSong = new Song(title, artist, isSingle);
+                            currentPlaylist.addSong(newSong);
+                            System.out.println("Song added to playlist '" + currentPlaylist.getName() + "'.");
+                        } else {
+                            System.out.println("No current playlist selected.");
+                        }
+                    } else {
+                        System.out.println("No playlists available. Please create one first.");
+                    }
                     break;
 
                 case 5:
-                    playlist.shufflePlay();  // Play a random song
+                    if (playlistManager.hasPlaylists()) {
+                        Playlist currentPlaylist = playlistManager.getCurrentPlaylist();
+                        if (currentPlaylist != null) {
+                            System.out.println("\n--- Current Playlist: " + currentPlaylist.getName() + " ---");
+                            currentPlaylist.showPlaylist();
+                        } else {
+                            System.out.println("No current playlist selected.");
+                        }
+                    } else {
+                        System.out.println("No playlists available.");
+                    }
                     break;
 
                 case 6:
-                    System.out.print("Enter song title: ");
-                    String title = scanner.nextLine();
-                    System.out.print("Enter artist name: ");
-                    String artist = scanner.nextLine();
-                    System.out.print("Is this a single? (true/false): ");
-                    boolean isSingle = scanner.nextBoolean();
-                    scanner.nextLine();  // Consume newline
-                    Song newSong = new Song(title, artist, isSingle);
-                    playlist.addSong(newSong);
-                    System.out.println("Song added to playlist.");
+                    Playlist currentPlaylist = playlistManager.getCurrentPlaylist();
+                    if (currentPlaylist != null) {
+                        System.out.println("\nNow Playing: " + currentPlaylist.getCurrentSong());
+                    } else {
+                        System.out.println("No playlist selected.");
+                    }
                     break;
 
                 case 7:
-                    System.out.print("Enter album name: ");
-                    String albumName = scanner.nextLine();
-                    System.out.print("Enter main track title: ");
-                    String mainTrackTitle = scanner.nextLine();
-                    System.out.print("Enter main track artist: ");
-                    String mainTrackArtist = scanner.nextLine();
-                    Song mainTrack = new Song(mainTrackTitle, mainTrackArtist, false);
-                    Album newAlbum = new Album(albumName, mainTrack);
-                    playlist.addSong(mainTrack);
-                    System.out.print("How many songs in the album? ");
-                    int songCount = scanner.nextInt();
-                    scanner.nextLine();  // Consume newline
-
-                    for (int i = 0; i < songCount; i++) {
-                        System.out.print("Enter song " + (i + 1) + " title: ");
-                        String albumSongTitle = scanner.nextLine();
-                        System.out.print("Enter song " + (i + 1) + " artist: ");
-                        String albumSongArtist = scanner.nextLine();
-                        Song albumSong = new Song(albumSongTitle, albumSongArtist, false);
-                        newAlbum.addSongToAlbum(albumSong);
-                        playlist.addSong(albumSong);
+                    currentPlaylist = playlistManager.getCurrentPlaylist();
+                    if (currentPlaylist != null) {
+                        currentPlaylist.nextSong();
+                        System.out.println("Next Song: " + currentPlaylist.getCurrentSong());
+                    } else {
+                        System.out.println("No playlist selected.");
                     }
-                    System.out.println("Album added to playlist.");
+                    break;
+
+                case 8:
+                    currentPlaylist = playlistManager.getCurrentPlaylist();
+                    if (currentPlaylist != null) {
+                        currentPlaylist.previousSong();
+                        System.out.println("Previous Song: " + currentPlaylist.getCurrentSong());
+                    } else {
+                        System.out.println("No playlist selected.");
+                    }
+                    break;
+
+                case 9:
+                    currentPlaylist = playlistManager.getCurrentPlaylist();
+                    if (currentPlaylist != null) {
+                        currentPlaylist.shufflePlay();
+                    } else {
+                        System.out.println("No playlist selected.");
+                    }
                     break;
 
                 case 0:

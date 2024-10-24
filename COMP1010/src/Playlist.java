@@ -4,11 +4,17 @@ import java.util.Random;
 
 public class Playlist {
     private List<Song> songs;
+    private String name;
     private int currentIndex;
 
-    public Playlist() {
-        songs = new ArrayList<>();
-        currentIndex = 0;
+    public Playlist(String name) {
+        this.songs = new ArrayList<>();
+        this.name = name;
+        this.currentIndex = 0;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void addSong(Song song) {
@@ -38,8 +44,12 @@ public class Playlist {
     }
 
     public void showPlaylist() {
-        for (Song song : songs) {
-            System.out.println(song);
+        if (songs.isEmpty()) {
+            System.out.println("No songs in the playlist.");
+        } else {
+            for (Song song : songs) {
+                System.out.println(song);
+            }
         }
     }
 }
