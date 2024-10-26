@@ -8,7 +8,7 @@ public class Main {
         // Create a playlist manager
         PlaylistManager playlistManager = new PlaylistManager();
 
-        boolean exit = false;
+        boolean exit = false; //control variable for exiting the loop
         while (!exit) {
             System.out.println("\n--- Music Player Menu ---");
             System.out.println("1. Show All Playlists");
@@ -25,20 +25,21 @@ public class Main {
             int choice = scanner.nextInt();
             scanner.nextLine();  // Consume the newline character
 
+            // process menu choice
             switch (choice) {
-                case 1:
+                case 1: //shows all playlists available in the PlaylistManager
                     System.out.println("\n--- All Playlists ---");
                     playlistManager.showAllPlaylists();
                     break;
 
-                case 2:
+                case 2: //create a new playlist and set it as the current one 
                     System.out.print("Enter playlist name: ");
                     String playlistName = scanner.nextLine();
                     playlistManager.createNewPlaylist(playlistName);
                     System.out.println("New playlist '" + playlistName + "' created and set as current.");
                     break;
 
-                case 3:
+                case 3: //allows the user to select a playlist by its index
                     System.out.println("Select a playlist by index:");
                     playlistManager.showAllPlaylists();
                     int playlistIndex = scanner.nextInt();
@@ -46,7 +47,7 @@ public class Main {
                     playlistManager.switchToPlaylist(playlistIndex);
                     break;
 
-                case 4:
+                case 4: //add a new song to the selected playlist
                     if (playlistManager.hasPlaylists()) {
                         Playlist currentPlaylist = playlistManager.getCurrentPlaylist();
                         if (currentPlaylist != null) {
@@ -68,7 +69,7 @@ public class Main {
                     }
                     break;
 
-                case 5:
+                case 5: //show all songs in the current playlist
                     if (playlistManager.hasPlaylists()) {
                         Playlist currentPlaylist = playlistManager.getCurrentPlaylist();
                         if (currentPlaylist != null) {
@@ -82,7 +83,7 @@ public class Main {
                     }
                     break;
 
-                case 6:
+                case 6: //play the current selected song in the playlist
                     Playlist currentPlaylist = playlistManager.getCurrentPlaylist();
                     if (currentPlaylist != null) {
                         System.out.println("\nNow Playing: " + currentPlaylist.getCurrentSong());
@@ -91,7 +92,7 @@ public class Main {
                     }
                     break;
 
-                case 7:
+                case 7: //move to the next song in the current playlist
                     currentPlaylist = playlistManager.getCurrentPlaylist();
                     if (currentPlaylist != null) {
                         currentPlaylist.nextSong();
@@ -101,7 +102,7 @@ public class Main {
                     }
                     break;
 
-                case 8:
+                case 8: //move to the previous song in the current playlist
                     currentPlaylist = playlistManager.getCurrentPlaylist();
                     if (currentPlaylist != null) {
                         currentPlaylist.previousSong();
@@ -111,7 +112,7 @@ public class Main {
                     }
                     break;
 
-                case 9:
+                case 9: //shuffle play a random song from current playlist
                     currentPlaylist = playlistManager.getCurrentPlaylist();
                     if (currentPlaylist != null) {
                         currentPlaylist.shufflePlay();
@@ -120,7 +121,7 @@ public class Main {
                     }
                     break;
 
-                case 0:
+                case 0: //exit the program
                     exit = true;
                     System.out.println("Exiting Music Player...");
                     break;
