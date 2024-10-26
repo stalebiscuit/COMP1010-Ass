@@ -1,9 +1,10 @@
 import java.util.ArrayList;
 
 public class PlaylistManager {
-    private ArrayList<Playlist> playlists;
-    private int currentPlaylistIndex;
+    private ArrayList<Playlist> playlists; //list of playlists 
+    private int currentPlaylistIndex; //index of the currently selected playlist
 
+    //initialises an empty PlaylistManager
     public PlaylistManager() {
         playlists = new ArrayList<>();
         currentPlaylistIndex = -1;  // No playlist selected initially
