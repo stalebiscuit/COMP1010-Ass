@@ -41,8 +41,18 @@ public class Main {
             System.out.println("9. Shuffle Play (Random Song)");
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
+          
+            /*
+            Check if the input is invalid.
+             */
+            if (!scanner.hasNextInt()) {
+                System.out.println("Invalid choice. Please enter a number.");
+                scanner.nextLine(); 
+                continue;
+            }
+            
             int choice = scanner.nextInt();
-            scanner.nextLine(); 
+            scanner.nextLine();    
 
             /*
             All choices the user can make for this program
@@ -156,10 +166,6 @@ public class Main {
                 break;
             }
             
-            else { //if the user inputs a non-index input
-                System.out.println("Wrong put in a number instead");
-                    continue;
-            }
         }
         scanner.close();
     }
