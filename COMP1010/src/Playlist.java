@@ -1,10 +1,10 @@
 import java.util.Random;
 
 public class Playlist {
-    private String name;          
-    private SongNode head;        
-    private SongNode tail;        
-    private SongNode currentSongNode; 
+    public String name;          
+    public SongNode head;        
+    public SongNode tail;        
+    public SongNode currentSongNode; 
 
     /*
        Constructor to initialize the playlist with a name.

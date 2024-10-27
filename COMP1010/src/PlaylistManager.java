@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
 public class PlaylistManager {
-    private ArrayList<Playlist> playlists; 
-    private int curPlylstIdx;
+    public ArrayList<Playlist> playlists; 
+    public int curPlylstIdx;
 
     /*
        Constructor to initialize an empty PlaylistManager.

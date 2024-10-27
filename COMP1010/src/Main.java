@@ -12,6 +12,20 @@ public class Main {
         */
         PlaylistManager playlistManager = new PlaylistManager();
 
+        // Create some initial playlists
+        playlistManager.createNewPlaylist("Pop Hits");
+        playlistManager.getCurrentPlaylist().addSong(new Song("Blinding Lights", "The Weeknd", true));
+        playlistManager.getCurrentPlaylist().addSong(new Song("Levitating", "Dua Lipa", true));
+        playlistManager.getCurrentPlaylist().addSong(new Song("Watermelon Sugar", "Harry Styles", true));
+        playlistManager.createNewPlaylist("Rock Classics");
+        playlistManager.getCurrentPlaylist().addSong(new Song("Bohemian Rhapsody", "Queen", false));
+        playlistManager.getCurrentPlaylist().addSong(new Song("Stairway to Heaven", "Led Zeppelin", false));
+        playlistManager.getCurrentPlaylist().addSong(new Song("Hotel California", "Eagles", false));
+        playlistManager.createNewPlaylist("Chill Vibes");
+        playlistManager.getCurrentPlaylist().addSong(new Song("Riptide", "Vance Joy", true));
+        playlistManager.getCurrentPlaylist().addSong(new Song("Someone Like You", "Adele", true));
+        playlistManager.getCurrentPlaylist().addSong(new Song("Wonder", "Shawn Mendes", true));
+
         boolean exit = false;
 
         while (!exit) {
